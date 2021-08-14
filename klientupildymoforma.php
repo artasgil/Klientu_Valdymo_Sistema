@@ -60,12 +60,8 @@ require_once("connection.php");
     <?php 
         if (isset($_GET["parodyti"])) {
             header("location:klientai.php");
-            
         }
     ?>
-
-    
-
 </body>
 
 </html>
