@@ -18,9 +18,4 @@ if($prisijungimas == false) {
 }
 
 
-
-
-
-
-
 ?>

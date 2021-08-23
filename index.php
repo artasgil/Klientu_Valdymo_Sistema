@@ -70,8 +70,4 @@ mysqli_close($prisijungimas);
 
 
 
-
-
-
-
 ?>

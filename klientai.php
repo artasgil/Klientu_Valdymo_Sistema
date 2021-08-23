@@ -11,34 +11,8 @@ if (isset($_GET["delete"])) {
     header("Location:klientai.php");
 }
 
-if (isset($_GET["edit"])) {
-    $id = $_GET["edit"];
-    $rezultatas = $prisijungimas->query("SELECT * FROM `klientai` WHERE `ID` = $id");
-
-    $klientai = $rezultatas->fetch_array();
-    $vardas = $klientai['vardas'];
-    $pavarde = $klientai['pavarde'];
-    $teises_id = $klientai['teises_id'];
-}
-
-if (isset($_GET["atnaujinti"])) {
-    $id = $_GET["id"];
-    $vardas = $_GET["vardas"];
-    $pavarde = $_GET["pavarde"];
-    $teises = $_GET["teises"];
-    
-    $prisijungimas->query("UPDATE `klientai` SET `vardas`='$vardas',`pavarde`='$pavarde',`teises_id`='$teises' WHERE `ID` = $id");
-
-}
-
-if (isset($_GET["grizti"])) {
-    header("Location: klientupildymoforma.php");
-}
-
-
 $sql = "SELECT * FROM `klientai` WHERE 1;";
 $rezultatas = $prisijungimas->query($sql);
-
 ?>
 
 <!DOCTYPE html>
@@ -61,14 +35,6 @@ $rezultatas = $prisijungimas->query($sql);
     <div class="container">
         <h1>Klientų redagavimo arba ištrynimo forma</h1>
         <form action="klientai.php" method="get">
-            <input type="hidden" name="id" value="<?php echo $id ?>" />
-            <div class="form-group">
-                <input type="text" value="<?php echo $vardas ?>" name="vardas" />
-                <input type="text" value="<?php echo $pavarde ?>" name="pavarde" />
-                <input type="text" value="<?php echo $teises_id ?>" name="teises" />
-                <button class="btn btn-primary" type="submit" name="atnaujinti">Atnaujinti</button>
-                <button class="btn btn-primary" type="submit" name="grizti">Grįžti atgal į klientų pridėjimą</button>
-            </div>
             <div class="row justify-content-center">
                 <table class="table">
                     <thead>
@@ -77,15 +43,26 @@ $rezultatas = $prisijungimas->query($sql);
                         <th>Pavardė</th>
                         <th>Teisės ID</th>
                         <th colspan="2">Veiksmas</th>
-
                     </thead>
                     <?php while ($klientai = mysqli_fetch_array($rezultatas)) { ?>
                         <tr>
                             <td><?php echo $klientai["ID"]; ?></td>
                             <td><?php echo $klientai["vardas"]; ?></td>
                             <td><?php echo $klientai["pavarde"]; ?></td>
-                            <td><?php echo $klientai["teises_id"]; ?></td>
-                            <td><?php echo "<a href='klientai.php?edit=" . $klientai["ID"] . "'>Redaguoti</a>"; ?></td>
+                            <?php $teises_id = $klientai["teises_id"];
+                            $sql = "SELECT * FROM klientai_teises WHERE reiksme = $teises_id";
+                            $result_teises = $prisijungimas->query($sql);
+
+                            if ($result_teises->num_rows == 1) {
+                                $rights = mysqli_fetch_array($result_teises);
+                                echo "<td>";
+                                echo $rights["pavadinimas"];
+                                echo "</td>";
+                            } else {
+                                echo "<td>Nepatvirtintas klientas</td>";
+                            } ?>
+                            </td>
+                            <td><?php echo "<a href='klientaiEdit.php?edit=" . $klientai["ID"] . "'>Redaguoti</a>"; ?></td>
                             <td><?php echo "<a href='klientai.php?delete=" . $klientai["ID"] . "'>Istrinti</a>"; ?></td>
                         </tr>
                     <?php } ?>

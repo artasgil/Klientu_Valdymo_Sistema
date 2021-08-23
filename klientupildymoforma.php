@@ -6,12 +6,14 @@ require_once("connection.php");
         if (isset($_GET["vardas"]) && !empty($_GET["vardas"]) && isset($_GET["pavarde"]) && !empty($_GET["pavarde"]) && isset($_GET["teises_id"]) && !empty($_GET["teises_id"])) {
             $vardas = $_GET["vardas"];
             $pavarde = $_GET["pavarde"];
-            $teises_id = $_GET["teises_id"];
+            $teises_id = intval($_GET["teises_id"]);
+            $pridejimo_data = date('Y-m-d');
+
 
             if ($teises_id == is_numeric($teises_id) && $teises_id > 0) {
-                $sql = "INSERT INTO `klientai`(`vardas`, `pavarde`, `teises_id`) VALUES ('$vardas','$pavarde ', $teises_id)";
+                $sql = "INSERT INTO `klientai`(`vardas`, `pavarde`, `teises_id`, `pridejimo_data`) VALUES ('$vardas','$pavarde ', '$teises_id', '$pridejimo_data')";
                 if (mysqli_query($prisijungimas, $sql)) {
-                    $zinutegerai = "Irasas yra pridetas, jūs pridėjote naują klientą: " . $vardas . " " . $pavarde . " " . $teises_id;
+                    $zinutegerai = "Įrašas pridėtas, jūs pridėjote naują klientą: " . $vardas . " " . $pavarde . " " . $teises_id;
                 } else {
                     $zinuteblogai = "Kažkas ivyko negerai";
                 }
@@ -24,9 +26,11 @@ require_once("connection.php");
     <?php
     if (isset($_GET["papildyti"])) {
         for ($i = 1; $i < 201; $i++) {
-            $randomid = (rand(1, 10));
-            $sql = "INSERT INTO `klientai`(`vardas`, `pavarde`,`teises_id`) VALUES ('vardas$i','pavarde$i', '$randomid')";
+            $randomid = rand(1, 5);
+            $pridejimo_data = date('Y-m-d');
+            $sql = "INSERT INTO `klientai`(`vardas`, `pavarde`,`teises_id`, `pridejimo_data`) VALUES ('vardas$i','pavarde$i', '$randomid', '$pridejimo_data')";
             mysqli_query($prisijungimas, $sql);
+
         }
         $zinutegerai = "Irasai buvo pridėti";
     }
