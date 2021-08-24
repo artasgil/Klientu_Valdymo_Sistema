@@ -15,7 +15,14 @@ require_once("connection.php");
 }
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand">Sveikas atvykęs, <?php echo $teises_id[2]. "<br> Jūsų teisės: ".$row["aprasymas"]?></a>
+    <a class="navbar-brand">Sveikas atvykęs, <?php echo $teises_id[2]. "<br> Jūsų teisės: ".$row["aprasymas"]?>
+    <?php echo "<form action='adminTeises.php' method ='post'>";
+    echo "<button class='btn btn-light' type='submit' name='logout'>Atsijungti</button>";
+    echo "</form>";
+    if(isset($_POST["logout"])) {
+        setcookie("prisijungta", "", time() - 3600, "/");
+        header("Location: prisijungimas.php");
+    } ?> </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -34,15 +41,17 @@ require_once("connection.php");
             <li class="nav-item">
                 <a class="nav-link" href="imones.php">Peržiūrėti įmones</a>
             </li>
-            <?php if($row["reiksme"]==1) { ?> <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle <?php if($row["reiksme"]==2) { echo "disabled";}?>" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Vartotojai
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#">Pridėti naują vartotoją</a>
                     <a class="dropdown-item" href="#">Vartotojų peržiūra</a>
+                    <a class="dropdown-item" href="#">Vartotojų prisijungimai</a>
+
                 </div>
-            </li> <?php } ?>
+            </li> 
         </ul>
         <form class="form-inline my-2 my-lg-0" action="clients.php" method="get">
             <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search Client" aria-label="Search">

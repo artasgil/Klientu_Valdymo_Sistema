@@ -12,7 +12,7 @@ require_once("connection.php");
     <title>Prisijungimas</title>
     <?php require_once("include.php"); ?>
 
-  
+
     <style>
         h1 {
             text-align: center;
@@ -35,7 +35,6 @@ require_once("connection.php");
         if (isset($_POST["username"]) && isset($_POST["password"]) && !empty($_POST["username"]) && !empty($_POST["password"])) {
             $username = $_POST["username"];
             $password = $_POST["password"];
-
             $sql = "SELECT * FROM `vartotojai` WHERE slapyvardis = '$username' AND slaptazodis = '$password'";
             $result = $prisijungimas->query($sql);
 
@@ -51,6 +50,8 @@ require_once("connection.php");
                 $cookie_array = implode("|", $cookie_array);
                 setcookie("prisijungta", $cookie_array, time() + 3600, "/");
                 header("Location: adminTeises.php");
+                $sql = "UPDATE `vartotojai` SET `paskutinis_prisijungimas`= now() WHERE slapyvardis= '$username' AND slaptazodis='$password'";
+                $resultatas = $prisijungimas->query($sql);
             } else {
                 $message = "Neteisingi prisijungimo duomenys";
             }
@@ -74,7 +75,7 @@ require_once("connection.php");
                 </div>
                 <a href="register.php">Register here</a><br>
                 <button class="btn btn-primary" type="submit" name="submit">Log in</button>
-                
+
             </form>
             <?php if (isset($message)) { ?>
                 <div class="alert alert-danger" role="alert">
@@ -85,7 +86,7 @@ require_once("connection.php");
     <?php } else {
         header("Location: klientupildymoforma.php");
     } ?>
-    
+
 </body>
 
 </html>

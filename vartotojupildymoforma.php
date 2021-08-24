@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Naujų vartotojų pridėjimas</title>
 
     <?php require_once("include.php"); ?>
     
@@ -37,8 +37,8 @@
        $username =$_POST["username"];
        $password =$_POST["password"];
        $repeat_password = $_POST["repeat-password"];
+       $teises_id = intval($_POST["teises_id"]);
        $registracijos_data= date('Y-m-d');
-
     
 
        $sql = "SELECT * FROM `vartotojai` WHERE slapyvardis='$username' ";
@@ -52,7 +52,7 @@
           if($password==$repeat_password){
             
             $sql = "INSERT INTO `vartotojai`( `vardas`, `pavarde`, `slapyvardis`, `teises_ID`, `slaptazodis`, `registracijos_data`) 
-            VALUES ('$name','$surname','$username','$password',1,'$registracijos_data')";    
+            VALUES ('$name','$surname','$username','$teises_id','$password','$registracijos_data')";    
 
             if(mysqli_query($prisijungimas, $sql)) {
                 $class= "success";
@@ -70,10 +70,10 @@
 ?>
 
 <div class="container">
-        <h1>Registracija</h1>
-        <form action="register.php" method="post">
+        <h1>Naujų vartotojų pridėjimas</h1>
+        <form action="vartotojupildymoforma.php" method="post">
             <div class="form-group">
-                <label for="name">Name</label>
+                <label for="name">Naujo vartotojo vardas</label>
                 <input class="form-control" type="text" name="name" required="true" value="<?php 
                     if(isset($name)) {
                         echo $name;
@@ -83,7 +83,7 @@
                 ?>" />
             </div>
             <div class="form-group">
-                <label for="surname">Surname</label>
+                <label for="surname">Naujo vartotojo pavardė</label>
                 <input class="form-control" type="text" name="surname" required="true" value="<?php 
                     if(isset($surname)) {
                         echo $surname;
@@ -92,7 +92,7 @@
                     }
                 ?>"/>
             <div class="form-group">
-                <label for="username">Username</label>
+                <label for="username">Naujo vartotojo slapyvardis</label>
                 <input class="form-control" type="text" name="username" required="true" value="<?php 
                     if(isset($username)) {
                         echo $username;
@@ -102,12 +102,26 @@
                 ?>"/>
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
+                <label for="password">Naujo vartotojo slaptažodis</label>
                 <input class="form-control" type="password" name="password" required="true" />
             </div>
             <div class="form-group">
-                <label for="repeat-password">Repeat Password</label>
+                <label for="repeat-password">Naujo vartotojo pakartotinis slaptažodis</label>
                 <input class="form-control" type="password" name="repeat-password" required="true" />
+            </div>
+            <div class="form-group">
+                <label for="teises_id">Nustatykite vartotojo teises:</label>
+                <select class="form-control" name="teises_id">
+                    <?php
+                    $sql = "SELECT * FROM vartotojai_teises";
+                    $result = $prisijungimas->query($sql);
+                    while ($vartotojaiRights = mysqli_fetch_array($result)) {
+                        echo "<option value='" . $vartotojaiRights["reiksme"] . "'>";
+                        echo $vartotojaiRights["aprasymas"];
+                        echo "</option>";
+                    }
+                    ?>
+                </select>
             </div>
 
 
@@ -117,8 +131,7 @@
                 </div>
             <?php } ?>
 
-            <a href="prisijungimas.php">Login here</a><br>
-            <button class="btn btn-primary" type="submit" name="submit">Register</button>
+            <button class="btn btn-primary" type="submit" name="submit">Registruoti</button>
         </form>
     </div>
 </body>

@@ -1,46 +1,45 @@
 <?php
 require_once("connection.php");
 ?>
- <?php
-    if (isset($_GET["prideti"])) {
-        if (isset($_GET["vardas"]) && !empty($_GET["vardas"]) && isset($_GET["pavarde"]) && !empty($_GET["pavarde"]) && isset($_GET["teises_id"]) && !empty($_GET["teises_id"])) {
-            $vardas = $_GET["vardas"];
-            $pavarde = $_GET["pavarde"];
-            $teises_id = intval($_GET["teises_id"]);
-            $pridejimo_data = date('Y-m-d');
+<?php
+if (isset($_GET["prideti"])) {
+    if (isset($_GET["vardas"]) && !empty($_GET["vardas"]) && isset($_GET["pavarde"]) && !empty($_GET["pavarde"]) && isset($_GET["teises_id"]) && !empty($_GET["teises_id"])) {
+        $vardas = $_GET["vardas"];
+        $pavarde = $_GET["pavarde"];
+        $teises_id = intval($_GET["teises_id"]);
+        $pridejimo_data = date('Y-m-d');
 
 
-            if ($teises_id == is_numeric($teises_id) && $teises_id > 0) {
-                $sql = "INSERT INTO `klientai`(`vardas`, `pavarde`, `teises_id`, `pridejimo_data`) VALUES ('$vardas','$pavarde ', '$teises_id', '$pridejimo_data')";
-                if (mysqli_query($prisijungimas, $sql)) {
-                    $zinutegerai = "Įrašas pridėtas, jūs pridėjote naują klientą: " . $vardas . " " . $pavarde . " " . $teises_id;
-                } else {
-                    $zinuteblogai = "Kažkas ivyko negerai";
-                }
+        if ($teises_id == is_numeric($teises_id) && $teises_id > 0) {
+            $sql = "INSERT INTO `klientai`(`vardas`, `pavarde`, `teises_id`, `pridejimo_data`) VALUES ('$vardas','$pavarde ', '$teises_id', '$pridejimo_data')";
+            if (mysqli_query($prisijungimas, $sql)) {
+                $zinutegerai = "Įrašas pridėtas, jūs pridėjote naują klientą: " . $vardas . " " . $pavarde . " " . $teises_id;
             } else {
-                $zinuteblogai = "Teisės ID nėra skaičius arba yra su minuso ženklu";
+                $zinuteblogai = "Kažkas ivyko negerai";
             }
+        } else {
+            $zinuteblogai = "Teisės ID nėra skaičius arba yra su minuso ženklu";
         }
-    } ?>
-
-    <?php
-    if (isset($_GET["papildyti"])) {
-        for ($i = 1; $i < 201; $i++) {
-            $randomid = rand(1, 5);
-            $pridejimo_data = date('Y-m-d');
-            $sql = "INSERT INTO `klientai`(`vardas`, `pavarde`,`teises_id`, `pridejimo_data`) VALUES ('vardas$i','pavarde$i', '$randomid', '$pridejimo_data')";
-            mysqli_query($prisijungimas, $sql);
-
-        }
-        $zinutegerai = "Irasai buvo pridėti";
     }
-    ?>
+} ?>
 
-    <?php
-    if (isset($_GET["parodyti"])) {
-        header("location:klientai.php");
+<?php
+if (isset($_GET["papildyti"])) {
+    for ($i = 1; $i < 201; $i++) {
+        $randomid = rand(1, 5);
+        $pridejimo_data = date('Y-m-d');
+        $sql = "INSERT INTO `klientai`(`vardas`, `pavarde`,`teises_id`, `pridejimo_data`) VALUES ('vardas$i','pavarde$i', '$randomid', '$pridejimo_data')";
+        mysqli_query($prisijungimas, $sql);
     }
-    ?>
+    $zinutegerai = "Irasai buvo pridėti";
+}
+?>
+
+<?php
+if (isset($_GET["parodyti"])) {
+    header("location:klientai.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -78,8 +77,18 @@ require_once("connection.php");
                 <input class="form-control" type="text" value="Pavardė pridėjimui" name="pavarde" />
             </div>
             <div class="form-group">
-                <label for="teises_id">Norėdami pridėti, įveskite vartotojo teises:</label>
-                <input class="form-control" type="text" value="1" name="teises_id" />
+                <label for="teises_id">Teisės:</label>
+                <select class="form-control" name="teises_id">
+                    <?php
+                    $sql = "SELECT * FROM klientai_teises";
+                    $result = $prisijungimas->query($sql);
+                    while ($clientRights = mysqli_fetch_array($result)) {
+                        echo "<option value='" . $clientRights["reiksme"] . "'>";
+                        echo $clientRights["pavadinimas"];
+                        echo "</option>";
+                    }
+                    ?>
+                </select>
             </div>
             <button class="btn btn-primary" type="submit" name="prideti">Pridėti naują klientą</button>
             <button class="btn btn-primary" type="submit" name="papildyti">Papildyti duomenis 200 kartų iš karto</button>
@@ -97,7 +106,7 @@ require_once("connection.php");
         </form>
     </div>
 
-   
+
 </body>
 
 </html>
