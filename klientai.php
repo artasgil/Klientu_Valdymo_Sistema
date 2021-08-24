@@ -33,6 +33,7 @@ $rezultatas = $prisijungimas->query($sql);
 
 <body>
     <div class="container">
+    <?php require_once("includes/menu.php"); ?>
         <h1>Klientų redagavimo arba ištrynimo forma</h1>
         <form action="klientai.php" method="get">
             <div class="row justify-content-center">

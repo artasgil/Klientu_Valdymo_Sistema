@@ -52,7 +52,7 @@
           if($password==$repeat_password){
             
             $sql = "INSERT INTO `vartotojai`( `vardas`, `pavarde`, `slapyvardis`, `teises_ID`, `slaptazodis`, `registracijos_data`) 
-            VALUES ('$name','$surname','$username','$password',1,'$registracijos_data')";    
+            VALUES ('$name','$surname','$username','0','$password','$registracijos_data')";    
 
             if(mysqli_query($prisijungimas, $sql)) {
                 $class= "success";

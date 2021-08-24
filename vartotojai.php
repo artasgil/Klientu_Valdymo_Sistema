@@ -1,3 +1,5 @@
+
+
 <?php
 require_once("connection.php");
 
@@ -24,11 +26,15 @@ $rezultatas = $prisijungimas->query($sql);
         h1 {
             text-align: center;
         }
+        
     </style>
 </head>
 
 <body>
+
     <div class="container">
+    <?php require_once("includes/menu.php"); ?>
+    <?php if($row["reiksme"]==1 || $row["reiksme"]==3) { ?>
         <h1>Vartotojų redagavimo arba ištrynimo forma</h1>
         <form action="vartotojai.php" method="get">
             <div class="row justify-content-center">
@@ -38,10 +44,15 @@ $rezultatas = $prisijungimas->query($sql);
                         <th>Vardas</th>
                         <th>Pavardė</th>
                         <th>Slapyvardis</th>
+                        <?php if($row["reiksme"]==1) { ?> 
                         <th>Registracijos data</th>
+                        <?php } ?>
                         <th>Paskutinis prisijungimas</th>
-                        <th>Teisės ID</th>
+                        <?php if($row["reiksme"]==1) { ?>
+                         <th>Teisės ID</th>
                         <th colspan="2">Veiksmas</th>
+                        <?php } ?>
+
                     </thead>
                     <?php while ($vartotojai = mysqli_fetch_array($rezultatas)) { ?>
                         <tr>
@@ -49,10 +60,12 @@ $rezultatas = $prisijungimas->query($sql);
                             <td><?php echo $vartotojai["vardas"]; ?></td>
                             <td><?php echo $vartotojai["pavarde"]; ?></td>
                             <td><?php echo $vartotojai["slapyvardis"]; ?></td>
+                            <?php if($row["reiksme"]==1) { ?> 
                             <td><?php echo $vartotojai["registracijos_data"]; ?></td>
+                            <?php } ?>
                             <td><?php echo $vartotojai["paskutinis_prisijungimas"]; ?></td>
 
-
+                            <?php if($row["reiksme"]==1) { ?>
                             <?php $teises_id = $vartotojai["teises_ID"];
                             $sql = "SELECT * FROM vartotojai_teises WHERE reiksme = $teises_id";
                             $result_teises = $prisijungimas->query($sql);
@@ -67,13 +80,18 @@ $rezultatas = $prisijungimas->query($sql);
                             } ?>
                             </td>
                             <td><?php echo "<a href='vartotojaiEdit.php?edit=" . $vartotojai["ID"] . "'>Redaguoti</a>"; ?></td>
+                            <?php } ?>
+                            <?php if($row["reiksme"]==4 || $row["reiksme"]==1) { ?>
                             <td><?php echo "<a href='vartotojai.php?delete=" . $vartotojai["ID"] . "'>Istrinti</a>"; ?></td>
+                            <?php } ?>
                         </tr>
+
                     <?php } ?>
                 </table>
             </div>
     </div>
     </form>
+    <?php } ?>
 </body>
 
 </html>

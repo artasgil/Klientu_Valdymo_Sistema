@@ -20,13 +20,7 @@
     <div class="container">
         <?php require_once("includes/menu.php"); ?>
         <h1>Valdymas ir suteiktos teisės</h1>
-        <?php if($row["reiksme"]==1) { ?>
-        <form action="adminTeises.php" method="get">
-        <button class="btn btn-primary" type="submit" name="vartotojuRedagavimas">Vartotojų redagavimas</button>
-        <button class="btn btn-primary" type="submit" name="klientuRedagavimas">Klientų redagavimas</button>
-        <button class="btn btn-primary" type="submit" name="imoniuRedagavimas">Įmonių redagavimas</button>
     </form>
-   <?php } ?>
 </body>
 
 </html>

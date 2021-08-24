@@ -46,9 +46,8 @@ require_once("connection.php");
                     Vartotojai
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Pridėti naują vartotoją</a>
-                    <a class="dropdown-item" href="#">Vartotojų peržiūra</a>
-                    <a class="dropdown-item" href="#">Vartotojų prisijungimai</a>
+                    <a class="dropdown-item" href="vartotojupildymoforma.php">Pridėti naują vartotoją</a>
+                    <a class="dropdown-item" href="vartotojai.php">Vartotojų peržiūra</a>
 
                 </div>
             </li> 

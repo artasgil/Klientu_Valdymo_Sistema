@@ -49,9 +49,10 @@ require_once("connection.php");
 
                 $cookie_array = implode("|", $cookie_array);
                 setcookie("prisijungta", $cookie_array, time() + 3600, "/");
-                header("Location: adminTeises.php");
                 $sql = "UPDATE `vartotojai` SET `paskutinis_prisijungimas`= now() WHERE slapyvardis= '$username' AND slaptazodis='$password'";
                 $resultatas = $prisijungimas->query($sql);
+                header("Location: adminPanel.php");
+  
             } else {
                 $message = "Neteisingi prisijungimo duomenys";
             }

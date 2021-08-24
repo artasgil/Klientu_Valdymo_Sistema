@@ -33,7 +33,8 @@ $rezultatas = $prisijungimas->query($sql);
 
 <body>
     <div class="container">
-        <h1>Imoniu redagavimo arba ištrynimo forma</h1>
+    <?php require_once("includes/menu.php"); ?>
+        <h1>Imonių redagavimo arba ištrynimo forma</h1>
         <form action="imones.php" method="get">
             <div class="row justify-content-center">
                 <table class="table">

@@ -43,13 +43,6 @@ if (isset($_GET["grizti"])) {
             text-align: center;
         }
 
-        .container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translateY(-50%) translateX(-50%);
-        }
-
         .hide {
             display: none;
         }
@@ -58,6 +51,7 @@ if (isset($_GET["grizti"])) {
 
 <body>
     <div class="container">
+    <?php require_once("includes/menu.php"); ?>
         <h1>Klientų redagavimo arba ištrynimo forma</h1>
         <form action="klientaiEdit.php" method="get">
             <input type="hidden" name="id" value="<?php echo $id ?>" />

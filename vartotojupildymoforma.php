@@ -16,13 +16,7 @@
         h1 {
             text-align: center;
         }
-
-        .container {
-            position:absolute;
-            top:50%;
-            left:50%;
-            transform: translateY(-50%) translateX(-50%);
-        }
+    
     </style>
 
 </head>
@@ -68,8 +62,9 @@
 
     }
 ?>
-
 <div class="container">
+<?php require_once("includes/menu.php"); ?>
+
         <h1>Naujų vartotojų pridėjimas</h1>
         <form action="vartotojupildymoforma.php" method="post">
             <div class="form-group">

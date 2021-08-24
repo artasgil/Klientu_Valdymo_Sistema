@@ -55,17 +55,12 @@ if (isset($_GET["parodyti"])) {
             text-align: center;
         }
 
-        .container {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translateY(-50%) translateX(-50%);
-        }
     </style>
 </head>
 
 <body>
     <div class="container">
+    <?php require_once("includes/menu.php"); ?>
         <h1>Klientų pildymo forma</h1>
         <form action="klientupildymoforma.php" method="get">
             <div class="form-group">
