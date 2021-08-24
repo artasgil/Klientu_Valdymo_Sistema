@@ -65,7 +65,7 @@
 <div class="container">
 <?php require_once("includes/menu.php"); ?>
 
-<?php if($row["reiksme"]==2 || $row["reiksme"]==4) { ?>
+<?php if($row["reiksme"]==1 || $row["reiksme"]==4) { ?>
     <h1>Naujų vartotojų pridėjimas</h1>
         <form action="vartotojupildymoforma.php" method="post">
             <div class="form-group">
