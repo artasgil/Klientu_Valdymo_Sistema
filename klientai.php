@@ -34,6 +34,7 @@ $rezultatas = $prisijungimas->query($sql);
 <body>
     <div class="container">
     <?php require_once("includes/menu.php"); ?>
+    <?php if($row["reiksme"]==1 || $row["reiksme"]==2 || $row["reiksme"]==3 || $row["reiksme"]== 4) { ?>
         <h1>Klientų redagavimo arba ištrynimo forma</h1>
         <form action="klientai.php" method="get">
             <div class="row justify-content-center">
@@ -42,14 +43,17 @@ $rezultatas = $prisijungimas->query($sql);
                         <th>ID</th>
                         <th>Vardas</th>
                         <th>Pavardė</th>
+                        <th>Pridėjimo data</th>
                         <th>Teisės ID</th>
                         <th colspan="2">Veiksmas</th>
+                     
                     </thead>
                     <?php while ($klientai = mysqli_fetch_array($rezultatas)) { ?>
                         <tr>
                             <td><?php echo $klientai["ID"]; ?></td>
                             <td><?php echo $klientai["vardas"]; ?></td>
                             <td><?php echo $klientai["pavarde"]; ?></td>
+                            <td><?php echo $klientai["pridejimo_data"]; ?></td>
                             <?php $teises_id = $klientai["teises_id"];
                             $sql = "SELECT * FROM klientai_teises WHERE reiksme = $teises_id";
                             $result_teises = $prisijungimas->query($sql);
@@ -63,14 +67,17 @@ $rezultatas = $prisijungimas->query($sql);
                                 echo "<td>Nepatvirtintas klientas</td>";
                             } ?>
                             </td>
+                            <?php if($row["reiksme"] !=3) { ?>
                             <td><?php echo "<a href='klientaiEdit.php?edit=" . $klientai["ID"] . "'>Redaguoti</a>"; ?></td>
                             <td><?php echo "<a href='klientai.php?delete=" . $klientai["ID"] . "'>Istrinti</a>"; ?></td>
+                            <?php } ?>
                         </tr>
                     <?php } ?>
                 </table>
             </div>
     </div>
     </form>
+    <?php } ?>
 </body>
 
 </html>

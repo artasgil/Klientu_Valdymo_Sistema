@@ -34,7 +34,7 @@ $rezultatas = $prisijungimas->query($sql);
 
     <div class="container">
     <?php require_once("includes/menu.php"); ?>
-    <?php if($row["reiksme"]==1 || $row["reiksme"]==3) { ?>
+    <?php if($row["reiksme"]==1 || $row["reiksme"]==3 || $row["reiksme"]==4 ) { ?>
         <h1>Vartotojų redagavimo arba ištrynimo forma</h1>
         <form action="vartotojai.php" method="get">
             <div class="row justify-content-center">
@@ -50,8 +50,8 @@ $rezultatas = $prisijungimas->query($sql);
                         <th>Paskutinis prisijungimas</th>
                         <?php if($row["reiksme"]==1) { ?>
                          <th>Teisės ID</th>
+                         <?php } ?>
                         <th colspan="2">Veiksmas</th>
-                        <?php } ?>
 
                     </thead>
                     <?php while ($vartotojai = mysqli_fetch_array($rezultatas)) { ?>

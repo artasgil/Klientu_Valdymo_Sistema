@@ -65,7 +65,8 @@
 <div class="container">
 <?php require_once("includes/menu.php"); ?>
 
-        <h1>Naujų vartotojų pridėjimas</h1>
+<?php if($row["reiksme"]==2 || $row["reiksme"]==4) { ?>
+    <h1>Naujų vartotojų pridėjimas</h1>
         <form action="vartotojupildymoforma.php" method="post">
             <div class="form-group">
                 <label for="name">Naujo vartotojo vardas</label>
@@ -129,5 +130,6 @@
             <button class="btn btn-primary" type="submit" name="submit">Registruoti</button>
         </form>
     </div>
+    <?php } ?>
 </body>
 </html>

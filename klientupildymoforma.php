@@ -10,8 +10,9 @@ if (isset($_GET["prideti"])) {
         $pridejimo_data = date('Y-m-d');
 
 
-        if ($teises_id == is_numeric($teises_id) && $teises_id > 0) {
-            $sql = "INSERT INTO `klientai`(`vardas`, `pavarde`, `teises_id`, `pridejimo_data`) VALUES ('$vardas','$pavarde ', '$teises_id', '$pridejimo_data')";
+        if ($teises_id == is_numeric($teises_id)) {
+            $sql = "INSERT INTO `klientai`(`vardas`, `pavarde`, `teises_id`, `pridejimo_data`)
+           VALUES ('$vardas','$pavarde ', '$teises_id', '$pridejimo_data')";
             if (mysqli_query($prisijungimas, $sql)) {
                 $zinutegerai = "Įrašas pridėtas, jūs pridėjote naują klientą: " . $vardas . " " . $pavarde . " " . $teises_id;
             } else {
@@ -61,6 +62,7 @@ if (isset($_GET["parodyti"])) {
 <body>
     <div class="container">
     <?php require_once("includes/menu.php"); ?>
+    <?php if($row["reiksme"]==1 || $row["reiksme"]==2 || $row["reiksme"]== 4) { ?>
         <h1>Klientų pildymo forma</h1>
         <form action="klientupildymoforma.php" method="get">
             <div class="form-group">
@@ -100,7 +102,7 @@ if (isset($_GET["parodyti"])) {
             <?php } ?>
         </form>
     </div>
-
+<?php } ?>
 
 </body>
 

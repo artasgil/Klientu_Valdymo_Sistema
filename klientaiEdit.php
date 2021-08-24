@@ -52,6 +52,7 @@ if (isset($_GET["grizti"])) {
 <body>
     <div class="container">
     <?php require_once("includes/menu.php"); ?>
+    <?php if($row["reiksme"]==1 || $row["reiksme"]==2 || $row["reiksme"]== 4) { ?>
         <h1>Klientų redagavimo arba ištrynimo forma</h1>
         <form action="klientaiEdit.php" method="get">
             <input type="hidden" name="id" value="<?php echo $id ?>" />
@@ -90,5 +91,5 @@ if (isset($_GET["grizti"])) {
     
     </form>
 </body>
-
+<?php } ?>
 </html>

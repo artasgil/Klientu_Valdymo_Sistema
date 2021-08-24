@@ -16,7 +16,7 @@ require_once("connection.php");
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand">Sveikas atvykęs, <?php echo $teises_id[2]. "<br> Jūsų teisės: ".$row["aprasymas"]?>
-    <?php echo "<form action='adminTeises.php' method ='post'>";
+    <?php echo "<form action='adminPanel.php' method ='post'>";
     echo "<button class='btn btn-light' type='submit' name='logout'>Atsijungti</button>";
     echo "</form>";
     if(isset($_POST["logout"])) {
@@ -38,15 +38,21 @@ require_once("connection.php");
                     <a class="dropdown-item" href="klientai.php">Klientų peržiūra</a>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="imones.php">Peržiūrėti įmones</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Įmonės
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="imoniupildymoforma.php">Pridėti naują įmonę</a>
+                    <a class="dropdown-item" href="imones.php">Įmonių peržiūra</a>
+                </div>
             </li>
              <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle <?php if($row["reiksme"]==2) { echo "disabled";}?>" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Vartotojai
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="vartotojupildymoforma.php">Pridėti naują vartotoją</a>
+                    <a class="dropdown-item <?php if($row["reiksme"]==3) { echo "disabled";}?>" href="vartotojupildymoforma.php">Pridėti naują vartotoją</a>
                     <a class="dropdown-item" href="vartotojai.php">Vartotojų peržiūra</a>
 
                 </div>
