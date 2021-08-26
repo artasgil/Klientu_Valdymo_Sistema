@@ -70,6 +70,8 @@
 ?>
 
 <div class="container">
+<?php require_once("includes/registracijos_isjungimas.php"); ?>
+    <?php if($registracija['ijungimas_isjungimas']==1) { ?>
         <h1>Registracija</h1>
         <form action="register.php" method="post">
             <div class="form-group">
@@ -121,5 +123,6 @@
             <button class="btn btn-primary" type="submit" name="submit">Register</button>
         </form>
     </div>
+    <?php } ?>
 </body>
 </html>

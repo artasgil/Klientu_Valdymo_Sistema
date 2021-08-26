@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,8 +18,8 @@
 
     <div class="container">
         <?php require_once("includes/menu.php"); ?>
-        <h1>Valdymas ir suteiktos teisės</h1>
-    </form>
+        <h1>Sveiki atvykę</h1>
+        </form>
 </body>
 
 </html>

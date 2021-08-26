@@ -36,11 +36,6 @@ if (isset($_GET["papildyti"])) {
 }
 ?>
 
-<?php
-if (isset($_GET["parodyti"])) {
-    header("location:klientai.php");
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -89,7 +84,6 @@ if (isset($_GET["parodyti"])) {
             </div>
             <button class="btn btn-primary" type="submit" name="prideti">Pridėti naują klientą</button>
             <button class="btn btn-primary" type="submit" name="papildyti">Papildyti duomenis 200 kartų iš karto</button>
-            <button class="btn btn-primary" type="submit" name="parodyti">Parodyti visus duomenis</button>
             <?php if (isset($zinuteblogai)) { ?>
                 <div class="alert alert-danger" role="alert">
                     <?php echo $zinuteblogai; ?>

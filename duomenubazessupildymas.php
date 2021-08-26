@@ -12,5 +12,4 @@ if(mysqli_query($prisijungimas, $sql)) {
     echo "Kazkas ivyko negerai";
 }
 mysqli_close($prisijungimas);
-
 ?>

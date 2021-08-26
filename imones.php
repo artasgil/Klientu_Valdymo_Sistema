@@ -64,8 +64,10 @@ $rezultatas = $prisijungimas->query($sql);
                                 echo "<td>Nepatvirtintas klientas</td>";
                             } ?>
                             </td>
+                            <?php if($row["reiksme"] !=3) { ?>
                             <td><?php echo "<a href='imonesEdit.php?edit=" . $imones["ID"] . "'>Redaguoti</a>"; ?></td>
                             <td><?php echo "<a href='imones.php?delete=" . $imones["ID"] . "'>Istrinti</a>"; ?></td>
+                            <?php }?>
                         </tr>
                     <?php } ?>
                 </table>

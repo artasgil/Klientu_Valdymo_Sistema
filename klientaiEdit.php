@@ -23,10 +23,6 @@ if (isset($_GET["atnaujinti"])) {
     $prisijungimas->query("UPDATE `klientai` SET `vardas`='$vardas',`pavarde`='$pavarde',`teises_id`='$teises' WHERE `ID` = $id");
 }
 
-if (isset($_GET["grizti"])) {
-    header("Location: klientupildymoforma.php");
-}
-
 
 ?>
 <!DOCTYPE html>
@@ -85,8 +81,7 @@ if (isset($_GET["grizti"])) {
                     </select>
                 </div> 
                 <button class="btn btn-primary" type="submit" name="atnaujinti">Atnaujinti</button>
-                <button class="btn btn-primary" type="submit" name="grizti">Grįžti atgal į klientų pridėjimą</button>
-                    </div>
+                </div>
             
     
     </form>

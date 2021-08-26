@@ -23,6 +23,11 @@ if (isset($_GET["prideti"])) {
     }
 } ?>
 
+
+<?php 
+require_once("connection.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,6 +49,21 @@ if (isset($_GET["prideti"])) {
     <div class="container">
         <?php require_once("includes/menu.php"); ?>
         <?php if ($row["reiksme"] == 1 || $row["reiksme"] == 2 || $row["reiksme"] == 4) { ?>
+            <?php
+if (isset($_GET["papildyti"])) {
+for($i=1; $i<30; $i++) {
+    $randomid = rand(1,3);
+    $sql = "INSERT INTO `imones`(`pavadinimas`, `tipas_id`,`aprasymas`) VALUES ('imone$i','$randomid', 'imonesAprasymas$i')";
+    mysqli_query($prisijungimas, $sql);
+
+}
+if(mysqli_query($prisijungimas, $sql)) {
+    echo "Irasai yra prideti";
+} else{
+    echo "Kazkas ivyko negerai";
+}
+}
+?>
             <h1>Įmonių pildymo forma</h1>
             <form action="imoniupildymoforma.php" method="get">
                 <div class="form-group">
@@ -69,6 +89,7 @@ if (isset($_GET["prideti"])) {
                     </select>
                 </div>
                 <button class="btn btn-primary" type="submit" name="prideti">Pridėti naują klientą</button>
+                <button class="btn btn-primary" type="submit" name="papildyti">Papildyti duomenis 30 kartų iš karto</button>
 
                 <?php if (isset($zinuteblogai)) { ?>
                     <div class="alert alert-danger" role="alert">
