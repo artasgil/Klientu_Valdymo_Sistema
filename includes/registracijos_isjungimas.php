@@ -9,9 +9,9 @@
         $registracija_teises = $prisijungimas->query($sql);
         if ($registracija_teises->num_rows == 1 && $registracija_teises == $registracija_teises) {
             $registracija = mysqli_fetch_assoc($registracija_teises);
-            echo "Registracijos galimybė: ijungta";
+            echo "Registracijos galimybė: įjungta";
         } else {
-            $registracija = mysqli_fetch_assoc($registracija_teises);
+            $registracija = 2;
             echo "Registracijos galimybė: išjungta";
         }
 ?>

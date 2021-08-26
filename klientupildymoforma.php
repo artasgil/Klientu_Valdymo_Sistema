@@ -14,7 +14,7 @@ if (isset($_GET["prideti"])) {
             $sql = "INSERT INTO `klientai`(`vardas`, `pavarde`, `teises_id`, `pridejimo_data`)
            VALUES ('$vardas','$pavarde ', '$teises_id', '$pridejimo_data')";
             if (mysqli_query($prisijungimas, $sql)) {
-                $zinutegerai = "Įrašas pridėtas, jūs pridėjote naują klientą: " . $vardas . " " . $pavarde . " " . $teises_id;
+                $zinutegerai = "Įrašas pridėtas sėkmingai";
             } else {
                 $zinuteblogai = "Kažkas ivyko negerai";
             }
@@ -32,7 +32,7 @@ if (isset($_GET["papildyti"])) {
         $sql = "INSERT INTO `klientai`(`vardas`, `pavarde`,`teises_id`, `pridejimo_data`) VALUES ('vardas$i','pavarde$i', '$randomid', '$pridejimo_data')";
         mysqli_query($prisijungimas, $sql);
     }
-    $zinutegerai = "Irasai buvo pridėti";
+    $zinutegerai = "Įrašai pridėti sėkmingai";
 }
 ?>
 

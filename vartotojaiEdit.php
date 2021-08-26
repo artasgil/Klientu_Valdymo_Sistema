@@ -20,12 +20,14 @@ if (isset($_GET["atnaujinti"])) {
     $teises_id = $_GET["teises_id"];
 
 
-    $prisijungimas->query("UPDATE `vartotojai` SET `vardas`='$vardas',`pavarde`='$pavarde',`slapyvardis`='$slapyvardis',`teises_ID`='$teises_id' WHERE `ID` = $id");
-}
+    if($prisijungimas->query("UPDATE `vartotojai` SET `vardas`='$vardas',`pavarde`='$pavarde',`slapyvardis`='$slapyvardis',`teises_ID`='$teises_id' WHERE `ID` = $id")){
+        $class= "success";
+                $message = "Įrašas redaguotas sekmingai";
+            } else {
+                $message = "Kažkas ivyko negerai";
+            }
+    }
 
-if (isset($_GET["grizti"])) {
-    header("Location: klientupildymoforma.php");
-}
 
 
 ?>
@@ -89,7 +91,11 @@ if (isset($_GET["grizti"])) {
                 </select>
             </div>
             <button class="btn btn-primary" type="submit" name="atnaujinti">Atnaujinti</button>
-            <button class="btn btn-primary" type="submit" name="grizti">Grįžti atgal į klientų pridėjimą</button>
+            <?php if(isset($message)) { ?>
+                <div class="alert alert-<?php echo $class; ?>" role="alert">
+                    <?php echo $message; ?>
+                </div>
+            <?php } ?>
     </div>
 
     </form>

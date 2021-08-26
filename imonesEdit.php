@@ -19,7 +19,11 @@ if (isset($_GET["atnaujinti"])) {
     $aprasymas = $_GET["aprasymas"];
     $tipas_id = $_GET["tipas_id"];
 
-    $prisijungimas->query("UPDATE `imones` SET `pavadinimas`='$pavadinimas',`tipas_id`='$tipas_id',`aprasymas`='$aprasymas' WHERE `ID` = $id");
+    if ($prisijungimas->query("UPDATE `imones` SET `pavadinimas`='$pavadinimas',`tipas_id`='$tipas_id',`aprasymas`='$aprasymas' WHERE `ID` = $id")) {
+        $zinutegerai = "Įrašas redaguotas sėkmingai";
+    } else {
+        $zinuteblogai = "Kažkas ivyko negerai";
+    }
 }
 
 ?>
@@ -45,43 +49,54 @@ if (isset($_GET["atnaujinti"])) {
 
 <body>
     <div class="container">
-    <?php require_once("includes/menu.php"); ?>
-    <?php if($row["reiksme"]==1 || $row["reiksme"]==2 || $row["reiksme"]== 4) { ?>
-        <h1>Imonių redagavimo forma</h1>
-        <form action="imonesEdit.php" method="get">
-            <input type="hidden" name="id" value="<?php echo $id ?>" />
-            <div class="form-group">
-                <label for="pavadinimas">Pavadinimas</label>
-                <input class="form-control" type="text" value="<?php echo $pavadinimas ?>" name="pavadinimas" />
-            </div>
-            <div class="form-group">
-                <label for="aprasymas">Aprašymas</label>
-                <textarea class="form-control" type="text" name="aprasymas"><?php echo $aprasymas ?></textarea>
-            </div>
-            <div class="form-group">
-                <label for="tipas_id">Įmonės tipas</label>
-                <select class="form-control" name="tipas_id">
-                    <?php
-                    $sql = "SELECT * FROM imones_tipas";
-                    $result = $prisijungimas->query($sql);
-                    while ($imonesTipas = mysqli_fetch_array($result)) {
+        <?php require_once("includes/menu.php"); ?>
+        <?php if ($row["reiksme"] == 1 || $row["reiksme"] == 2 || $row["reiksme"] == 4) { ?>
+            <h1>Imonių redagavimo forma</h1>
+            <form action="imonesEdit.php" method="get">
+                <input type="hidden" name="id" value="<?php echo $id ?>" />
+                <div class="form-group">
+                    <label for="pavadinimas">Pavadinimas</label>
+                    <input class="form-control" type="text" value="<?php echo $pavadinimas ?>" name="pavadinimas" />
+                </div>
+                <div class="form-group">
+                    <label for="aprasymas">Aprašymas</label>
+                    <textarea class="form-control" type="text" name="aprasymas"><?php echo $aprasymas ?></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="tipas_id">Įmonės tipas</label>
+                    <select class="form-control" name="tipas_id">
+                        <?php
+                        $sql = "SELECT * FROM imones_tipas";
+                        $result = $prisijungimas->query($sql);
+                        while ($imonesTipas = mysqli_fetch_array($result)) {
 
-                        if ($imones["tipas_id"] == $imonesTipas["reiksme"]) {
-                            echo "<option value='" . $imonesTipas["reiksme"] . "' selected='true'>";
-                        } else {
-                            echo "<option value='" . $imonesTipas["reiksme"] . "'>";
+                            if ($imones["tipas_id"] == $imonesTipas["reiksme"]) {
+                                echo "<option value='" . $imonesTipas["reiksme"] . "' selected='true'>";
+                            } else {
+                                echo "<option value='" . $imonesTipas["reiksme"] . "'>";
+                            }
+
+                            echo $imonesTipas["pavadinimas"];
+                            echo "</option>";
                         }
-
-                        echo $imonesTipas["pavadinimas"];
-                        echo "</option>";
-                    }
-                    ?>
-                </select>
-            </div>
-            <button class="btn btn-primary" type="submit" name="atnaujinti">Atnaujinti</button>
+                        ?>
+                    </select>
+                </div>
+                <button class="btn btn-primary" type="submit" name="atnaujinti">Atnaujinti</button>
+                <?php if (isset($zinuteblogai)) { ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?php echo $zinuteblogai; ?>
+                    </div>
+                <?php } ?>
+                <?php if (isset($zinutegerai)) { ?>
+                    <div class="alert alert-success" role="alert">
+                        <?php echo $zinutegerai; ?>
+                    </div>
+                <?php } ?>
     </div>
 
     </form>
 </body>
 <?php } ?>
+
 </html>

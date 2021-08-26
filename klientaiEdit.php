@@ -20,8 +20,12 @@ if (isset($_GET["atnaujinti"])) {
     $pavarde = $_GET["pavarde"];
     $teises = $_GET["teises"];
 
-    $prisijungimas->query("UPDATE `klientai` SET `vardas`='$vardas',`pavarde`='$pavarde',`teises_id`='$teises' WHERE `ID` = $id");
-}
+    if ($prisijungimas->query("UPDATE `klientai` SET `vardas`='$vardas',`pavarde`='$pavarde',`teises_id`='$teises' WHERE `ID` = $id")) {
+        $zinutegerai = "Įrašas redaguotas sėkmingai";
+    } else {
+        $zinuteblogai = "Kažkas ivyko negerai";
+    }
+    }
 
 
 ?>
@@ -81,10 +85,19 @@ if (isset($_GET["atnaujinti"])) {
                     </select>
                 </div> 
                 <button class="btn btn-primary" type="submit" name="atnaujinti">Atnaujinti</button>
+                <?php if (isset($zinuteblogai)) { ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?php echo $zinuteblogai; ?>
+                    </div>
+                <?php } ?>
+                <?php if (isset($zinutegerai)) { ?>
+                    <div class="alert alert-success" role="alert">
+                        <?php echo $zinutegerai; ?>
+                    </div>
+                    <?php } ?>
+
                 </div>
-            
-    
-    </form>
+        </form>
 </body>
 <?php } ?>
 </html>

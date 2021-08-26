@@ -34,6 +34,7 @@ $rezultatas = $prisijungimas->query($sql);
 <body>
     <div class="container">
     <?php require_once("includes/menu.php"); ?>
+    <?php if ($row["reiksme"] == 1 || $row["reiksme"] == 2 || $row["reiksme"] == 3 || $row["reiksme"] == 4) { ?>
         <h1>Imonių redagavimo arba ištrynimo forma</h1>
         <form action="imones.php" method="get">
             <div class="row justify-content-center">
@@ -74,6 +75,7 @@ $rezultatas = $prisijungimas->query($sql);
             </div>
     </div>
     </form>
+    <?php } ?>
 </body>
 
 </html>

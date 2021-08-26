@@ -15,14 +15,14 @@ require_once("connection.php");
 }
 ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand">Sveikas atvykęs, <?php echo $teises_id[2] . "<br> Jūsų teisės: " . $row["aprasymas"] ?>
+    <div class="navbar-brand">Sveikas atvykęs, <?php echo $teises_id[2] . "<br> Jūsų teisės: " . $row["aprasymas"] ?>
         <?php echo "<form action='adminPanel.php' method ='post'>";
         echo "<button class='btn btn-light' type='submit' name='logout'>Atsijungti</button>";
         echo "</form>";
         if (isset($_POST["logout"])) {
             setcookie("prisijungta", "", time() - 3600, "/");
             header("Location: prisijungimas.php");
-        } ?> </a>
+        } ?> </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>

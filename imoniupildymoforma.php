@@ -13,7 +13,7 @@ if (isset($_GET["prideti"])) {
             $sql = "INSERT INTO `imones`(`pavadinimas`, `tipas_id`, `aprasymas`) 
             VALUES ('$pavadinimas','$tipas_id ','$aprasymas')";
             if (mysqli_query($prisijungimas, $sql)) {
-                $zinutegerai = "Įrašas pridėtas, jūs pridėjote naują įmonę: " . $pavadinimas . " " . $aprasymas;
+                $zinutegerai = "Įrašas pridėtas sėkmingai";
             } else {
                 $zinuteblogai = "Kažkas ivyko negerai";
             }
@@ -55,12 +55,11 @@ for($i=1; $i<30; $i++) {
     $randomid = rand(1,3);
     $sql = "INSERT INTO `imones`(`pavadinimas`, `tipas_id`,`aprasymas`) VALUES ('imone$i','$randomid', 'imonesAprasymas$i')";
     mysqli_query($prisijungimas, $sql);
-
 }
 if(mysqli_query($prisijungimas, $sql)) {
-    echo "Irasai yra prideti";
+    $zinutegerai = "Įrašai pridėti sėkmingai";
 } else{
-    echo "Kazkas ivyko negerai";
+    $zinuteblogai = "Kažkas įvyko negerai";
 }
 }
 ?>
@@ -88,7 +87,7 @@ if(mysqli_query($prisijungimas, $sql)) {
                         ?>
                     </select>
                 </div>
-                <button class="btn btn-primary" type="submit" name="prideti">Pridėti naują klientą</button>
+                <button class="btn btn-primary" type="submit" name="prideti">Pridėti naują įmonę</button>
                 <button class="btn btn-primary" type="submit" name="papildyti">Papildyti duomenis 30 kartų iš karto</button>
 
                 <?php if (isset($zinuteblogai)) { ?>
